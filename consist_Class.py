@@ -82,10 +82,13 @@ class Consistencia():
 
 objeto = Consistencia()
 #lerbase de pessoas e propridades
+
 objeto.abrir_bases("BD_148.00")
+
 #procurar os missings em propriedades 
 objeto.valida_missing_propriedades(objeto.dfpropriedade, '[missing]')
 #procurarmissings em pessoas
+
 objeto.valida_missing_pessoas(objeto.dfpessoas, '[missing]')
 objeto.valida_indexadores(objeto.dfpropriedade)
 objeto.cpf_Duplicado("controle_pessoas", "Estrutura")
