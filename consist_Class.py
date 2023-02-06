@@ -161,7 +161,48 @@ class Consistencia():
         df_resultados_duplicidade.to_excel(writer, sheet_name='Erros de Duplicidade', index=False)
         df_resultado_missing.to_excel(writer, sheet_name='Missings Encontrados', index=False)
         writer.save()
-
+    def valida_datas_nascmento():
+        x = 0
+        formato_data = "%d/%m/%Y"
+        resultado_datas_para_validacao = {}
+        listagem_Idsgcs_com_pesquisa_aplicada = []
+        listagem_datas_com_pesquisa_aplicada = []
+        pesquisa_aplicada =dfpropriedade[["ID-SGC","C1","1.1.1", "1.1.18", "1.1.22"]]
+        pesquisa_aplicada
+        for i in pesquisa_aplicada["1.1.22"]:
+                x+=1
+                if i == "Não":
+                        listagem_Idsgcs_com_pesquisa_aplicada.append(pesquisa_aplicada.loc[x-1,"ID-SGC"])
+                        listagem_datas_com_pesquisa_aplicada.append(pesquisa_aplicada.loc[x-1,"1.1.18"])
+        datas_corrigidas = []
+        for i in listagem_datas_com_pesquisa_aplicada:
+                datas_formatadas = datetime.strptime(i,formato_data)
+                datas_formatadas
+                datas_corrigidas.append(datas_formatadas)
+        resultado_datas_para_validacao = dict(zip(listagem_Idsgcs_com_pesquisa_aplicada, datas_corrigidas))
+        lista_idsgc = []
+        lista_indexador = []
+        lista_idp = []
+        lista_data_aniversário = []
+        lista_idade = []
+        datas_pessoas = []
+        for i in dfpessoas["2.2.4"]:
+                x+=1
+                datas_pessoas.append(i)
+                for i in datas_pessoas:
+                        formatando_dt_pessoas = datetime.strptime(i,formato_data)
+                        formatando_dt_pessoas
+        for i in formatando_dt_pessoas:
+        #transformar as datas de string para datetime no formato data_format
+                if i > datetime.today:
+                        lista_idsgc.append(dfpessoas.loc[x-1,"ID-SGC"])
+                        lista_indexador.append(dfpessoas.loc[x-1,"C1"])
+                        lista_idp.append(dfpessoas.loc[x-1,"ID-P"])
+                        lista_data_aniversário.append(dfpessoas.loc[x-1,"2.2.4"])
+                        lista_idade.append(dfpessoas.loc[x-1,"2.2.5"])
+                df_data = [lista_idsgc, lista_indexador, lista_idp, lista_data_aniversário, lista_idade]
+        df_datas_de_nasc_maior_que_data_da_entrevista = pd.DataFrame(data = df_data, columns= ["ID-SGC", "Indexador", "ID-Pessoa", "Data de Aniversário", "Idade Informada"])
+        return df_datas_de_nasc_maior_que_data_da_entrevista
     
 
 objeto = Consistencia()
